@@ -1,0 +1,29 @@
+{
+  "name": "cli",
+  "version": "1.0.0",
+  "description": "自定义脚手架",
+  "main": "index.js",
+  "bin": "cli.js",
+  "type": "commonjs",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "prepare": "husky install"
+  },
+  "dependencies": {
+    "ejs": "^3.1.8",
+    "fs": "^0.0.1-security",
+    "inquirer": "^8.0.0",
+    "path": "^0.12.7"
+  },
+  "keywords": [
+    "cli",
+    "vue"
+  ],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@commitlint/cli": "^17.0.3",
+    "@commitlint/config-conventional": "^17.0.3",
+    "husky": "^8.0.1"
+  }
+}

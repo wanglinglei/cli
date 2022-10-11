@@ -4,18 +4,49 @@ const fs = require("fs");
 const path = require("path");
 const inquirer = require("inquirer");
 const ejs = require("ejs");
-const fse = require("fs-extra");
+
+const cssEnum = {
+  less: {
+    lang: "lang='less'",
+    package: `,"less-loader":"^7.0"`,
+    loaderOptions:
+      "less: {lessOptions: {modifyVars: {'primary-color': '#ec6800'},javascriptEnabled: true,},}",
+  },
+  sass: {
+    lang: "lang='less'",
+  },
+  none: {
+    lang: "",
+    package: "",
+    loaderOptions: "",
+  },
+};
 
 inquirer
   .prompt([
     {
       type: "input",
       name: "projectName",
-      message: "your project name?",
+      message: "请输入项目名称",
+    },
+    {
+      type: "list",
+      name: "css",
+      message: "css预处理语言",
+      default: 0,
+      choices: [
+        { value: "less", name: "less" },
+        { value: "sass", name: "sass" },
+        { value: "none", name: "none" },
+      ],
     },
   ])
   .then((answers) => {
     console.log(answers);
+    answers = {
+      ...answers,
+      cssOption: cssEnum[answers.css],
+    };
     const temp = path.join(__dirname, "templates");
     const destDir = process.cwd();
     function getFiles(OriginFilePath, CopyFilePath) {
@@ -29,7 +60,7 @@ inquirer
             //获取新文件夹中复制的地方
             const CopyFile = path.resolve(CopyFilePath, file.name);
             //将文件从旧文件夹复制到新文件夹中
-            // fs.copyFileSync(OriginFile, CopyFile);
+            fs.copyFileSync(OriginFile, CopyFile);
             ejs.renderFile(OriginFile, answers, (err, result) => {
               if (err) throw err;
               fs.writeFileSync(CopyFile, result);

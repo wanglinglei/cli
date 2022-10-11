@@ -19,6 +19,7 @@
     "typescript": "^4.5.4",
     "vite": "^2.9.5",
     "vue-tsc": "^0.34.7"
+    <%- cssOption.package %>
   },
   "husky": {
     "hooks": {
